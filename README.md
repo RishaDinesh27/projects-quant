@@ -1,4 +1,5 @@
 # Quant Projects — Risha Dinesh
+*Northeastern University · CS & Finance · Class of 2029*
 
 Quantitative finance projects built summer 2026
 
@@ -8,7 +9,13 @@ Quantitative finance projects built summer 2026
 Compares ICLN (clean energy ETF) vs SPY (S&P 500) across
 volatility, daily returns, and cumulative performance.
 
-**Key finding:** ICLN carried 55% more volatility than SPY but delivered lower average daily returns — investors were not compensated for the additional risk.
+**Key findings:**
+- ICLN has 55% higher daily volatility than SPY (2.0% vs 1.3%)
+- Despite higher risk, ICLN delivered lower average daily returns (0.060% vs 0.064% per day): clean energy investors were not compensated for the additional risk over this period
+- Both were heavily impacted by the COVID crash in March 2020
+- SPY outperformed ICLN over the full period despite ICLN briefly peaking near 2.8x during the 2020-2021 clean energy boom
+
+
 
 [View project →](01-stock-analysis/)
 
@@ -26,5 +33,3 @@ volatility, daily returns, and cumulative performance.
 
 ## Background
 Freshman at Northeastern University studying CS and Finance. Targeting quant trading and IB co-ops for fall 2026.
-
---Updated April 30th 2026--
