@@ -30,9 +30,14 @@ I wanted to understand how clean energy stocks have performed relative to the br
 - Slow recovery post-2023, possible drivers include stabilizing rates and renewed clean energy investment such as the interest in EV's and carbon capture,
   though further  analysis would be needed to confirm causation
 
+- SPY generated fewer signals than the ICLN due to SPY's steady upward trend while the ICLN stock had much more signals clustered together during times of high volatility.
+
+- This showcases that the signals present in the SPY stock would be more trustworthy than those in the ICLN stock, as the volatility present in ICLN could suggest more frequent false signals. Since ICLN is a sector ETF, it is more sensitive to sector specific movements such as interest rate and policy changes.
+
+- Conclusion: Moving average crossover signals are more reliable on low volatility broad ETFs, rather than sector ETFs.
+
 ## Still building
 - Sharpe ratio calculation
-- Moving averages and trading signals
 
 ## How to run
 1. Install dependencies: `pip install yfinance pandas matplotlib`

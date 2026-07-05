@@ -20,10 +20,10 @@ volatility, daily returns, and cumulative performance.
 [View project →](01-stock-analysis/)
 
 ### 02 — Market Making Simulator
-*Coming June 2026*
+*Coming Soon*
 
 ### 03 — Pairs Trading Strategy
-*Coming July 2026*
+*Coming Soon*
 
 ## Skills demonstrated
 - Python (pandas, numpy, matplotlib, yfinance)
@@ -32,4 +32,4 @@ volatility, daily returns, and cumulative performance.
 - Quantitative reasoning
 
 ## Background
-Freshman at Northeastern University studying CS and Finance. Targeting quant trading and IB co-ops for fall 2026.
+Rising Sophomore at Northeastern University studying CS and Finance. Targeting quant trading and IB co-ops for spring 2026.
