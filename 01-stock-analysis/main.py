@@ -25,6 +25,9 @@ rolling_vol = returns.rolling(window = 30).std()
 short_mavg = close_prices['ICLN'].rolling(window = 20).mean()
 long_mavg = close_prices['ICLN'].rolling(window = 50).mean()
 
+short_mavg_spy= close_prices['SPY'].rolling(window = 20).mean()
+long_mavg_spy = close_prices['SPY'].rolling(window = 50).mean()
+
 
 # daily returns chart
 returns.plot(title="Daily Returns: ICLN vs SPY (2020–Present)")
@@ -69,7 +72,26 @@ plt.ylabel("Price")
 plt.legend()
 plt.show()
 
+# moving average crossover for SPY
 
+buy_sig_spy = (short_mavg_spy > long_mavg_spy) & (short_mavg_spy.shift(1) <= long_mavg_spy.shift(1))
+sell_sig_spy = (short_mavg_spy < long_mavg_spy) & (short_mavg_spy.shift(1) >= long_mavg_spy.shift(1))
+ 
+buy_dates_spy = buy_sig_spy[buy_sig_spy].index
+sell_dates_spy = sell_sig_spy[sell_sig_spy].index
+
+close_prices['SPY'].plot(label = "SPY Prices")
+long_mavg_spy .plot(label = "50 Day Moving Average")
+short_mavg_spy.plot(label = "20 Day Moving Average")
+
+plt.scatter(buy_dates_spy, close_prices['SPY'][buy_dates_spy], marker = '^', color = 'green', s = 100, label = 'Buy', zorder = 5)
+plt.scatter(sell_dates_spy, close_prices['SPY'][sell_dates_spy], marker = 'v', color = 'red', s = 100, label = 'Sell', zorder = 5)
+
+plt.title("SPY Price and Moving Average Crossovers (2020–Present)")
+plt.xlabel("Date")
+plt.ylabel("Price")
+plt.legend()
+plt.show()
 
 # calculate variance and standard deviation for each ticker
 variance = returns.var()
