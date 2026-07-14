@@ -1,3 +1,4 @@
+from matplotlib.pylab import sqrt
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -76,7 +77,7 @@ plt.show()
 
 buy_sig_spy = (short_mavg_spy > long_mavg_spy) & (short_mavg_spy.shift(1) <= long_mavg_spy.shift(1))
 sell_sig_spy = (short_mavg_spy < long_mavg_spy) & (short_mavg_spy.shift(1) >= long_mavg_spy.shift(1))
- 
+
 buy_dates_spy = buy_sig_spy[buy_sig_spy].index
 sell_dates_spy = sell_sig_spy[sell_sig_spy].index
 
@@ -93,11 +94,21 @@ plt.ylabel("Price")
 plt.legend()
 plt.show()
 
+#calculate the Sharpe ratio for each ticker
+daily_risk_free_rate = 0.04 / 252  #U.S treasury bonds average annual return / number of trading days
+sharpe_ratio_daily = (returns.mean() - daily_risk_free_rate) / returns.std()
+
+print("\nSharpe Ratio (Daily):")
+print(sharpe_ratio_daily)
+
+print("\nSharpe Ratio (Annualized):")
+print(sharpe_ratio_daily * sqrt(252))
+
 # calculate variance and standard deviation for each ticker
 variance = returns.var()
 std_dev = returns.std()
 
-print("Variance:")
+print("\nVariance:")
 print(variance)
 print("\nStandard Deviation (Volatility):")
 print(std_dev)

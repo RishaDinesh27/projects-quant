@@ -36,8 +36,9 @@ I wanted to understand how clean energy stocks have performed relative to the br
 
 - Conclusion: Moving average crossover signals are more reliable on low volatility broad ETFs, rather than sector ETFs.
 
-## Still building
-- Sharpe ratio calculation
+- SPY's annualized Sharpe Ratio of 0.61 is higher than that of ICLN's 0.3. This showcases that the SPY provided better risk adjusted returns over the full period.
+
+- Since both Sharpe ratios are below 1, this suggests that investors were not compensated for their risk. However it is important to interpret this in consideration of the time period. Due to the analysis being concentrated from 2020 through 2026, this reflects the high volatility environment primarily fueled by Covid, continuous rate hikes and growing inflation.
 
 ## How to run
 1. Install dependencies: `pip install yfinance pandas matplotlib`
