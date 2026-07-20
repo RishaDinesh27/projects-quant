@@ -19,11 +19,14 @@ volatility, daily returns, and cumulative performance.
 
 [View project →](01-stock-analysis/)
 
-### 02 — Market Making Simulator
+### 02 — Pairs Trading Strategy
 *Coming Soon*
 
-### 03 — Pairs Trading Strategy
+[View project →](pairs-trading/)
+
+### 03 — Market Making Simulator
 *Coming Soon*
+
 
 ## Skills demonstrated
 - Python (pandas, numpy, matplotlib, yfinance)
