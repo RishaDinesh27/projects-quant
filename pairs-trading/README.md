@@ -24,7 +24,7 @@ Alpha: 38.24
 Beta: 1.02
 ADF stat: -3.23
 P-Value: 0.018
-Co-integration?: Yes  No. Further testing concludes that these two stocks are not cointegrated. Updated reasoning under ADF Bias - Limitation
+Co-integration?: Yes  No. Further testing concludes that these two stocks are not co-integrated. Updated reasoning under ADF Bias - Limitation
 
 
 ## Notes
