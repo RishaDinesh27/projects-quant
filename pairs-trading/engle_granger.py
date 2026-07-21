@@ -1,6 +1,6 @@
-
 import statsmodels.api as sm #regression
-from statsmodels.tsa.stattools import adfuller #adf testing
+from statsmodels.tsa.stattools import adfuller , coint #adf testing
+
 
 def run_regression(close_prices, ticker_x, ticker_y):
     y = close_prices[ticker_y]
@@ -26,3 +26,13 @@ def run_adf_test(residuals):
 
 def check_cointegration(p_value, significance_level = 0.05):
     return p_value < significance_level
+
+def run_coint_test(close_prices, ticker_x, ticker_y):
+    y = close_prices[ticker_y]
+    x = close_prices[ticker_x]
+
+    results = coint(y, x)
+    test_statistic = results[0]
+    p_value = results[1]
+
+    return test_statistic, p_value
