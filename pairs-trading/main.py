@@ -4,9 +4,9 @@ from johansen import run_johansen
 from half_life import estimate_half_life
 
 
-close_prices = get_prices(["XOM", "CVX"], "2020-01-01")
+close_prices = get_prices(["GS", "MS"], "2022-01-01")
 
-alpha, beta, residuals = run_regression(close_prices, "XOM", "CVX")
+alpha, beta, residuals = run_regression(close_prices, "GS", "MS")
 print(f"Alpha: {alpha}, Beta: {beta}")
 
 test_statistic, p_value = run_adf_test(residuals)
@@ -22,5 +22,5 @@ print("Critical values:", johansen_result.cvt)
 estimated_half_life = estimate_half_life(residuals)
 print(f"Estimated Half-Life: {estimated_half_life}")
 
-test_statistic_coint, p_value_coint = run_coint_test(close_prices, "XOM", "CVX")
+test_statistic_coint, p_value_coint = run_coint_test(close_prices, "GS", "MS")
 print(f"Cointegration Test Statistic: {test_statistic_coint}, p-value: {p_value_coint}")
