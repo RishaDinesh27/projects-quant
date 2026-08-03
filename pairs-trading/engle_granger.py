@@ -2,6 +2,7 @@ import statsmodels.api as sm #regression
 from statsmodels.tsa.stattools import adfuller , coint #adf testing
 
 
+## look ahead bias does not acutally back test yet, uses data from whole time period rather than the data needed for back test inflating beta
 def run_regression(close_prices, ticker_x, ticker_y):
     y = close_prices[ticker_y]
     x = close_prices[ticker_x]

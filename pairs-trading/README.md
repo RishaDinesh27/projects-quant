@@ -90,3 +90,21 @@ Since the Johansen test and the corrected co-integration test both catch
 this edge case and agree with each other, they're the more trustworthy
 result here, allowing me to come to the conclusion that XOM & CVX are actually
 not co-integrated.
+
+
+## Look Ahead Bias
+
+Currently present in my code is a look ahead bias, which I have audited
+today and will fix on an upcoming date. The look ahead bias is present in
+the run_regression() function, as it runs the regression once and then
+generates values used in other functions. The beta value generated uses
+data from the entire dataset all at once, rather than just data available
+up to that point in time. This can't be ideal for backtesting, because a
+backtester can only use data that would be available at that time, so
+using the whole dataset at once can inflate or deflate the beta values and
+subsequent results.
+
+Other functions such as compute_zscore(),
+generate_signals(), and generate_positions() don't have this issue,
+because they are looking at values that are used from the current day and
+previous days, not ones that look forward.
