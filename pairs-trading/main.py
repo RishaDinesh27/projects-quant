@@ -3,7 +3,7 @@ from engle_granger import run_regression, run_adf_test, check_cointegration, run
 from johansen import run_johansen
 from half_life import estimate_half_life
 from zscore import compute_zscore, generate_signals, generate_postions
-from backtest import run_backtest
+from backtest import compute_transaction_costs, run_backtest
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -42,14 +42,21 @@ gs_shares_list, ms_shares_list = generate_postions(signal, close_prices, beta, 1
 
 daily_pnl = run_backtest(gs_shares_list, ms_shares_list, close_prices, "GS", "MS")
 
+transaction_costs = compute_transaction_costs(signal, gs_shares_list, ms_shares_list, close_prices, "GS", "MS", transaction_cost=0.0005)
+
 results = pd.DataFrame({
     "signal": signal,
     "gs_shares": gs_shares_list,
     "ms_shares": ms_shares_list,
-    "daily_pnl": daily_pnl
+    "daily_pnl": daily_pnl,
+    "transaction_costs": transaction_costs
 }, index=close_prices.index)
 
+results["net_pnl"] = results["daily_pnl"] - results["transaction_costs"]
+
 print(results.round(2).iloc[35:55])
+
+
 
 #plotting zscores
 plt.figure(figsize=(10, 5))
