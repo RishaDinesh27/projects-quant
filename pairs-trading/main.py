@@ -4,8 +4,10 @@ from johansen import run_johansen
 from half_life import estimate_half_life
 from zscore import compute_zscore, generate_signals, generate_postions
 from backtest import compute_transaction_costs, run_backtest
+from metrics import calculate_sharpe_ratio, compute_max_drawdown, compute_win_rate, compute_turnover
 import matplotlib.pyplot as plt
 import pandas as pd
+
 
 close_prices = get_prices(["GS", "MS"], "2022-01-01")
 
@@ -53,10 +55,25 @@ results = pd.DataFrame({
 }, index=close_prices.index)
 
 results["net_pnl"] = results["daily_pnl"] - results["transaction_costs"]
-
+results["daily_returns"] = results["net_pnl"] / 100000 
 print(results.round(2).iloc[35:55])
 
+print("\n=== Metrics ===")
 
+sharpe_ratio_full_period = calculate_sharpe_ratio(results["daily_returns"], results["signal"], full_period=True)
+print(f"\nSharpe Ratio for the Full Period: {sharpe_ratio_full_period:.4f}")
+
+sharpe_ratio_active_period = calculate_sharpe_ratio(results["daily_returns"], results["signal"], full_period=False)
+print(f"Sharpe Ratio for the Active Period: {sharpe_ratio_active_period:.4f}")
+
+max_drawdown = compute_max_drawdown(results["net_pnl"])
+print(f"Maximum Drawdown: {max_drawdown:.2f}")
+
+win_rate = compute_win_rate(results["net_pnl"], results["signal"])
+print(f"Win Rate: {win_rate:.2%}")
+
+turnover = compute_turnover(signal, gs_shares_list, ms_shares_list, close_prices, "GS", "MS", capital=100000)
+print(f"Turnover: {turnover:.2f}x")
 
 #plotting zscores
 plt.figure(figsize=(10, 5))
