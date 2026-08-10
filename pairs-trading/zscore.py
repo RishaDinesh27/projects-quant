@@ -4,7 +4,7 @@ def compute_zscore(residuals,window):
 
 def generate_signals(zscore, entry = 2, exit = 0.1):
     current_position = 0
-    daily_signal = []
+    daily_signals = []
 
     #zscore series of the zscores per day, gs deviated from ms
     # signal = 1, short the spread (short MS, long GS)
@@ -14,20 +14,19 @@ def generate_signals(zscore, entry = 2, exit = 0.1):
     for  z in zscore:
         if current_position == 0 and z > entry:
             current_position = 1
-            daily_signal.append(1)
+            daily_signals.append(1)
 
         elif current_position == 0 and z < -entry:
             current_position = -1
-            daily_signal.append(-1)
-
+            daily_signals.append(-1)
         elif current_position != 0 and abs(z) <= exit:
             current_position = 0
-            daily_signal.append(0)
+            daily_signals.append(0)
 
         else:
-            daily_signal.append(current_position)
+            daily_signals.append(current_position)
 
-    return daily_signal
+    return daily_signals
 
 def generate_postions(signal, close_prices, beta, capital,ticker_x, ticker_y):
     shares_x = 0

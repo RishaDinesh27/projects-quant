@@ -46,3 +46,9 @@ def compute_turnover(signals, gs_shares_list, ms_shares_list, close_prices, tick
 
     return total_dollar_traded / capital
 
+def compute_trade_duration(signal):
+    trade_start = (signal != 0) & (signal.shift(1).fillna(0) == 0)
+    trade_id = trade_start.cumsum()
+
+    duration = signal[signal != 0].groupby(trade_id[signal != 0]).count()
+    return duration.mean() if not duration.empty else 0
