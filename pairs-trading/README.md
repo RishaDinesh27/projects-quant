@@ -17,43 +17,41 @@ as a foundation for a mean-reversion pairs trading strategy.
 Pair: JPM/BAC
 Alpha: 15.15
 Beta: 0.12
-ADF stat: -1.93
-P-Value: 0.316
+ADF Test Statistic: -1.93
+P-value: 0.316
 Cointegrated?: No
 
 Pair: XOM/CVX
 Alpha: 38.24
 Beta: 1.02
-ADF stat: -3.23
-P-Value: 0.018
+ADF Test Statistic: -3.23
+P-value: 0.018 (ADF)
 Cointegrated?: ~~Yes~~  No. Further testing concludes that these two stocks
 are not cointegrated. Updated reasoning under ADF Bias Limitation
 
 Trace statistics: [8.55218803e+00 6.81789653e-03]
 Critical values: [[13.4294 15.4943 19.9349]
 [2.7055  3.8415  6.6349]]
-Estimated Half-Life: 71.19868789765397
-Cointegration Test Statistic: -3.229971134220717, p-value: 0.06505701188231364
+Estimated Half-Life: 71.20
+Cointegration Test Statistic: -3.23, P-value: 0.065 (Corrected)
 
 --------------------------------------------------------------------------------
 
 ## Pair for Week 2 Signal and Strategy Logic
 
 Pair: GS/MS
-Alpha: 21.352894511383894
-Beta: 0.17585776053067717
-ADF Test Statistic: -3.689992145826318
-p-value: 0.004256146119111804
+Alpha: 21.35
+Beta: 0.18
+ADF Test Statistic: -3.70
+P-value: 0.004 (ADF)
+Cointegrated?: Yes
 
-Are the two series cointegrated? Yes
-
-Trace statistics: [15.19141894  1.35211977]
+Trace statistics: [15.19  1.35]
 Critical values: [[13.4294 15.4943 19.9349]
  [2.7055  3.8415  6.6349]]
-
-Estimated Half-Life: 25.766167200664857
-Cointegration Test Statistic: -3.6916295631023948
-p-value: 0.018784364494598402
+Estimated Half-Life: 25.77
+Cointegration Test Statistic: -3.69
+P-value: 0.019 (Corrected)
 
 - For this pair, I changed the date range to 2022-01-01 to remove the volatile
 COVID period. The ADF test and the `coint()` test actually agree here, both
@@ -120,19 +118,32 @@ not ones that look forward.
 
 --------------------------------------------------------------------------------
 
+## Metrics (8/11)
+
+|     Metric     |   Naive    | Walk-Forward | Buy and Hold |
+|----------------|------------|--------------|--------------|
+| Sharpe(Active) |   0.2340   |    -0.2020   |      N/A     |
+| Sharpe(Full)   |   0.3376   |    -0.0977   |    0.9310    |
+| Win-Rate       |   62.96%   |     43.75%   |      N/A     |
+| Turnover       |   53.98x   |     48.76x   |      N/A     |
+| Drawdown       | -$8,644.78 |   -$8,516.83 |      N/A     |
+| Avg Trade Days |    26.56   |     14.44    |      N/A     |
+
+--------------------------------------------------------------------------------
+
 ## Failure Modes and Limitations
 
 The issue was that the beta was originally calculated using the entire dataset,
 therefore giving the best fit relationship between GS and MS throughout the whole
 period, not just the data that would've been available at the time. This means
-that beta reflected information that wouldn't have been known during that period
+that beta reflected information that wouldn't have been known during that period,
 making subsequent calculations unrealistic and affected by the look-ahead bias.
-Walk-forward validation removes this with the use of a 126 day training period
-and a 21 day testing period, the latter estimated with the pair's 28 day half life
+Walk-forward validation removes this with the use of a 126-day training period
+and a 21-day testing period, the latter estimated with the pair's 28-day half-life
 in mind. This in turn re-estimates beta every training period with only past data
-at each step revealing a Sharpe Ratio of -0.10 and a win rate of 44% unlike the
+at each step, revealing a Sharpe Ratio of -0.10 and a win rate of 44% unlike the
 previous 0.35 and 63% respectively. The updated metrics from the walk-forward
-validation further confirms the fact that the previous metrics were inflated due
+validation further confirm the fact that the previous metrics were inflated due
 to a beta influenced by look-ahead bias.
 
 ## Buy and Hold Benchmarking
@@ -151,6 +162,19 @@ rather than the overall market direction itself. In other words both strategies
 answer different questions, one about market direction while the other about
 relative mean reversion.
 
+## Regime Shift
+
+If there was a regime shift for GS and MS, there may be a chance that these two
+stocks are not actually cointegrated anymore, making it an unsuitable pair for
+pairs trading. This may lead to a different pair being used or a stop in the trade
+of this pair altogether. Passing a cointegration test today, cannot guarantee
+that a stable cointegration relationship would persist. In practice,
+in order to check this, the `coint()`,  `run_johansen()` and `run_adf_test()`
+should be run frequently, in order to make sure that these stocks are cointegrated
+before risking real capital. The walk-forward framework could be used to detect this
+through the beta values, as a significant shift in them from one testing period
+to another could indicate a shift in the cointegration relationship.
+
 --------------------------------------------------------------------------------
 
 ## Conclusion
@@ -162,6 +186,6 @@ needed for the Johansen test. The backtest, when not tested for look-ahead
 bias, was mediocre with a Sharpe of 0.35 and win rate of 63%. It seemed that
 if I wanted to test it further, it would be a plausible option. However, once I
 adjusted for the look-ahead bias in the walk-forward version, the Sharpe was
--0.10 and the win rate was 44%, worse than a coin flip. Both underperformed the buy
-and hold benchmark's Sharpe of 0.94 signaling to me that the strategy
+-0.0977 and the win rate was 44%, worse than a coin flip. Both underperformed
+the buy and hold benchmark's Sharpe of 0.94 signaling to me that the strategy
 presented would not be one I would test with real capital.
