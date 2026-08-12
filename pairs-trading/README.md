@@ -27,7 +27,7 @@ Beta: 1.02
 ADF Test Statistic: -3.23
 P-value: 0.018 (ADF)
 Cointegrated?: ~~Yes~~  No. Further testing concludes that these two stocks
-are not cointegrated. Updated reasoning under ADF Bias Limitation
+are not cointegrated. Updated reasoning under ADF Bias Limitation.
 
 Trace statistics: [8.55218803e+00 6.81789653e-03]
 Critical values: [[13.4294 15.4943 19.9349]
@@ -48,7 +48,7 @@ Cointegrated?: Yes
 
 Trace statistics: [15.19  1.35]
 Critical values: [[13.4294 15.4943 19.9349]
- [2.7055  3.8415  6.6349]]
+[2.7055  3.8415  6.6349]]
 Estimated Half-Life: 25.77
 Cointegration Test Statistic: -3.69
 P-value: 0.019 (Corrected)
@@ -63,14 +63,14 @@ Johansen test, however, showed a trace statistic of 15.19 — just short of the 
 critical value of 15.49 — falling just outside the range needed to confirm
 cointegration at that confidence level.
 
-Tested other pairs, COP/EOG, WFC/USB, and MPC/VLO however none showed a close
-agreement between `coint()` and Johansen
+Tested other pairs, COP/EOG, WFC/USB, and MPC/VLO ,however, none showed a close
+agreement between `coint()` and Johansen.
 
 --------------------------------------------------------------------------------
 
 ## Notes
 JPM/BAC: Weak beta 0.12. This suggests a looser relationship than what you'd
-expect from two large banks; these banks are not cointegrated
+expect from two large banks; these banks are not cointegrated.
 
 XOM/CVX: Beta near 1 makes economic sense because these two companies are
 similar sized and have similar exposure to commodities.
@@ -97,7 +97,6 @@ Since the Johansen test and the corrected cointegration test both catch
 this edge case and agree with each other, they're the more trustworthy
 result here, allowing me to come to the conclusion that XOM/CVX are actually
 not cointegrated.
-
 
 ## Look-Ahead Bias
 

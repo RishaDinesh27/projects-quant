@@ -36,7 +36,6 @@ test_statistic_coint, p_value_coint = run_coint_test(close_prices, "GS", "MS")
 print(f"Cointegration Test Statistic: {test_statistic_coint:.4f}, p-value: {p_value_coint:.4f}")
 
 
-
 print("\n=== Signal and Backtesting ===")
 
 zscore = compute_zscore(residuals, window=30)
@@ -90,7 +89,6 @@ wf_df["net_pnl"] = wf_df["daily_pnl"] - compute_transaction_costs(wf_df["signal"
 wf_df["daily_returns"] = wf_df["net_pnl"] / 100000
 
 
-
 print("\n=== Metrics - Walk-Forward ===")
 
 wf_sharpe_ratio_full_period = calculate_sharpe_ratio(wf_df["daily_returns"], wf_df["signal"], full_period=True)
@@ -110,7 +108,6 @@ print(f"\nWalk-Forward Turnover: {wf_turnover:.2f}x")
 
 wf_trade_duration = compute_trade_duration(wf_df["signal"])
 print(f"\nWalk-Forward Average Trade Duration: {wf_trade_duration:.2f} days")
-
 
 
 print("\n=== Comparison ===")
